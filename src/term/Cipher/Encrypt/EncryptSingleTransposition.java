@@ -25,7 +25,7 @@ public class EncryptSingleTransposition implements Encrypt {
   public Ciphertext	encrypt(Plaintext plaintext) {
 
     //create a grid and store plaintext in it
-    Grid grid = new Grid(key.getKey().length(), plaintext.getStrippedText());
+    Grid grid = new Grid(key.getKey().length(), plaintext.getText());
     String ciphertextStr = "";
 
     //iterate in increasing order

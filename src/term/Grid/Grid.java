@@ -9,7 +9,7 @@ public class Grid implements Cloneable{
   private ArrayList<StringBuilder> grid;
   private int rowCount;
   private int colCount;
-  public static final char fillChar = '*';
+  public static final Character fillChar = '*';
 
   //Sample usage
   public static void main(String[] args) {
@@ -117,6 +117,21 @@ public class Grid implements Cloneable{
     return this;
   }
   
+  public Grid removeRow(int pos) {
+    if(pos < 0 || pos >= rowCount) {
+      throw new IllegalArgumentException("Invalid row position");
+    }
+
+    //remove the row
+    grid.remove(pos);
+    rowCount--;
+    return this;
+  }
+
+  public void setEntry(int row, int col, char entry) {
+    grid.get(row).setCharAt(col, entry);
+  }
+
   //--------------------------------------------------------------------------------
   public ArrayList<StringBuilder> getGridArray(){
     return (ArrayList<StringBuilder>) grid.clone();
@@ -132,6 +147,10 @@ public class Grid implements Cloneable{
       col.append(grid.get(i).charAt(pos));
     }
     return col.toString();
+  }
+
+  public char getEntry(int row, int col) {
+    return grid.get(row).charAt(col);
   }
 
   public int getRowCount() {

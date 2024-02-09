@@ -1,6 +1,5 @@
 package term.Cipher.Decrypt;
 
-import term.Cipher.Decrypt.Decrypt;
 import term.Grid.Grid;
 import term.Text.Ciphertext;
 import term.Text.Plaintext;
@@ -10,7 +9,6 @@ import term.Key.LetterKey;
 
 public class DecryptSingleTransposition implements Decrypt{
   private final Key key;
-  private final int[] orderToRead;
   public static void main(String[] args) {
     System.out.println(decrypt(new Ciphertext("eoodHlWll_r*"), new LetterKey("DAY")));
   }
@@ -23,7 +21,6 @@ public class DecryptSingleTransposition implements Decrypt{
   //--------------------------------------------------------------------------------
   public DecryptSingleTransposition(Key key) {
     this.key = key;
-    this.orderToRead = KeyFun.orderOfIntKey(key.toString());
   }
   
   public Key getKey() {
@@ -31,18 +28,23 @@ public class DecryptSingleTransposition implements Decrypt{
   }
 
   public Plaintext decrypt(Ciphertext encryptedText){
-    int keyLength = key.getKeyLen();
-    int textLength = encryptedText.length();
-    Grid inversedGrid = new Grid(KeyFun.getRowLen(keyLength, textLength), encryptedText.getText());
-    Grid plaintextGrid = new Grid(keyLength, encryptedText.getText());
+    Grid plaintextGrid = inverseSingleTransposition(encryptedText, key);
+
+    return new Plaintext( KeyFun.listToKeyStr( plaintextGrid.getGridArray() ).replaceAll("\\*", "") );
+  }
+
+  static Grid inverseSingleTransposition(Ciphertext encryptedText, Key key) {
+    int keyLen = key.getKeyLen();
+    int cipherTextLen = encryptedText.length();
+    Grid inversedGrid = new Grid(KeyFun.getRowLen(keyLen, cipherTextLen), encryptedText.getText());
+    Grid plaintextGrid = new Grid(keyLen, encryptedText.getText());
 
     for(int i = 0; i < inversedGrid.getRowCount(); i++)
     {
       int colToPlace = key.indexOf(i);
       plaintextGrid.replaceCol(inversedGrid.getRow(i), colToPlace);
     }
-
-    return new Plaintext(KeyFun.listToKeyStr(plaintextGrid.getGridArray()));
+    return plaintextGrid;
   }
 
   //--------------------------------------------------------------------------------

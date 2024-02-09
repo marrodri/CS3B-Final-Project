@@ -22,7 +22,7 @@ public class EncryptDoubleTransposition implements Encrypt {
   @Override
   public Ciphertext	encrypt(Plaintext plaintext) {    
     EncryptSingleTransposition once = new EncryptSingleTransposition(key1);
-    Plaintext onceEncrypted = new Plaintext(once.encrypt(plaintext).getStrippedText());
+    Plaintext onceEncrypted = new Plaintext(once.encrypt(plaintext).getText());
     EncryptSingleTransposition twice = new EncryptSingleTransposition(key2);
     return twice.encrypt(onceEncrypted);
   }
