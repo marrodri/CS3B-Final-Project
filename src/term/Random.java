@@ -6,15 +6,15 @@ import java.time.Clock;
 public class Random {
   static java.util.Random random = new java.util.Random(Clock.systemUTC().millis());
   
-  int nextInt() {
+  static public int nextInt() {
     return random.nextInt();
   }
   
-  int nextInt(int bound) {
+  static public int nextInt(int bound) {
     return random.nextInt(bound);
   }
 
-  char nextLetter(){
+  static public char nextLetter(){
     return (char) (random.nextInt(26) + 'a');
   }
 }

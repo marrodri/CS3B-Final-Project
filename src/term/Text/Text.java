@@ -1,7 +1,5 @@
 package term.Text;
 
-import term.Grid.Grid;
-
 public class Text {
   protected String text;
 
@@ -12,18 +10,6 @@ public class Text {
 
   public String getText() {
     return text;
-  }
-
-  public Grid getGridText(int col_length) {
-    // intentioanlly left blank
-    //called it in Plaintext or Ciphertext class
-    return null;
-  }
-
-  public Grid getGridText(int col_length, Character paddingChar) {
-    // intentioanlly left blank
-    //called it in Plaintext or Ciphertext class
-    return null;
   }
 
   public int getTextLength() {
