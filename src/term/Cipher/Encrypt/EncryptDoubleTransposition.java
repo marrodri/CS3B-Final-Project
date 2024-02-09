@@ -15,14 +15,16 @@ public class EncryptDoubleTransposition implements Encrypt {
   }
 
   public static Ciphertext encrypt(Plaintext plaintext, Key key1, Key key2) {
-    // Add your encryption logic here
-    return null;
+    EncryptDoubleTransposition EDT = new EncryptDoubleTransposition(key1, key2);
+    return EDT.encrypt(plaintext);
   }
   
   @Override
-  public Ciphertext	encrypt(Plaintext plaintext){    // Implement the encryption logic for single transposition cipher here
-    // Return the encrypted ciphertext
-    return null;
+  public Ciphertext	encrypt(Plaintext plaintext) {    
+    EncryptSingleTransposition once = new EncryptSingleTransposition(key1);
+    Plaintext onceEncrypted = new Plaintext(once.encrypt(plaintext).getStrippedText());
+    EncryptSingleTransposition twice = new EncryptSingleTransposition(key2);
+    return twice.encrypt(onceEncrypted);
   }
 
 }

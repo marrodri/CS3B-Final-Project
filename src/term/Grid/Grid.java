@@ -1,12 +1,14 @@
 package term.Grid;
 import java.util.ArrayList;
 
+import term.Key.KeyFun;
+
 //Damn Copilot write the whole fking class for me
 
 public class Grid implements Cloneable{
-  final private ArrayList<StringBuilder> grid;
-  final private int rowCount;
-  final private int colCount;
+  private ArrayList<StringBuilder> grid;
+  private int rowCount;
+  private int colCount;
   public static final char fillChar = '*';
 
   //Sample usage
@@ -19,20 +21,15 @@ public class Grid implements Cloneable{
     System.out.println(grid.equals(grid2));
     System.out.println(grid2 == grid);
 
-    grid = grid.insertRow("WE'R", 0);
-    grid = grid.insertRow("#1MA", 1);
-    grid = grid.insertRow("----", 2);
-    grid = grid.insertCol("EN-ooo*", 4); // add a column at the end
+    grid.insertRow("WE'R", 0);
+    grid.insertRow("#1MA", 1);
+    grid.insertRow("----", 2);
+    grid.insertCol("EN-ooo*", 4); // add a column at the end
     grid.insertRow("WhatT", 5); // does not work
 
     System.out.println(grid);
   }
-  private Grid(ArrayList<StringBuilder> grid)
-  {
-    this.grid = grid;
-    this.rowCount = grid.size();
-    this.colCount = grid.get(0).length();
-  }
+
 
   public Grid(int col_len, String text) {
     this(col_len, text, fillChar);
@@ -41,7 +38,7 @@ public class Grid implements Cloneable{
   public Grid(int col_len, String text, char fillerChar) {
     this.grid = new ArrayList<>();
     this.colCount = col_len;
-    this.rowCount = Math.ceilDiv(text.length(), col_len);
+    this.rowCount = KeyFun.getRowLen(col_len, text.length());
 
     int remainder = col_len - text.length() % col_len;
     
@@ -68,11 +65,9 @@ public class Grid implements Cloneable{
       throw new IllegalArgumentException("Invalid row position");
     }
 
-
-    ArrayList<StringBuilder> ret = (ArrayList<StringBuilder>) grid.clone();
-
-    ret.add(pos, new StringBuilder(rowStr));
-    return new Grid(ret);
+    //insert the row
+    grid.add(pos, new StringBuilder(rowStr));
+    return this;
   }
 
   //return a new grid with the column inserted at the specified position
@@ -85,14 +80,48 @@ public class Grid implements Cloneable{
       throw new IllegalArgumentException("Invalid column position");
     }
 
-    ArrayList<StringBuilder> ret = (ArrayList<StringBuilder>) grid.clone();
-
+    //insert the column
     for (int i = 0; i < rowCount; i++) {
-      ret.get(i).insert(pos, colStr.charAt(i));
+      grid.get(i).insert(pos, colStr.charAt(i));
     }
-    return new Grid(ret);
+    return this;
   }
 
+  public Grid replaceRow(String rowStr, int pos) {
+    if(rowStr.length() != colCount) {
+      throw new IllegalArgumentException("Row length must be equal to the number of columns");
+    }
+    
+    if(pos < 0 || pos >= rowCount) {
+      throw new IllegalArgumentException("Invalid row position");
+    }
+
+    //replace the row
+    grid.set(pos, new StringBuilder(rowStr));
+    return this;
+  }
+
+  public Grid replaceCol(String colStr, int pos) {
+    if(colStr.length() != rowCount) {
+      throw new IllegalArgumentException("Column length must be equal to the number of rows");
+    }
+    
+    if (pos < 0 || pos >= colCount) {
+      throw new IllegalArgumentException("Invalid column position");
+    }
+
+    //replace the column
+    for (int i = 0; i < rowCount; i++) {
+      grid.get(i).setCharAt(pos, colStr.charAt(i));
+    }
+    return this;
+  }
+  
+  //--------------------------------------------------------------------------------
+  public ArrayList<StringBuilder> getGridArray(){
+    return (ArrayList<StringBuilder>) grid.clone();
+  }
+  
   public String getRow(int pos) {
     return grid.get(pos).toString();
   }
@@ -112,6 +141,7 @@ public class Grid implements Cloneable{
   public int getColCount() {
     return colCount;
   }
+//--------------------------------------------------------------------------------
 
   @Override
   public boolean equals(Object grid) {

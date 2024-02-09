@@ -1,7 +1,7 @@
 package term.Text;
 
 public class Text {
-  protected String text;
+  protected final String text;
 
   public Text(String text){
     // Bro the copilot is reading my mind
@@ -12,7 +12,7 @@ public class Text {
     return text;
   }
 
-  public int getTextLength() {
+  public int length() {
     return text.length();
   }
 
