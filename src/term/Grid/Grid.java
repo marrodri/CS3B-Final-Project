@@ -4,9 +4,9 @@ import java.util.ArrayList;
 //Damn Copilot write the whole fking class for me
 
 public class Grid implements Cloneable{
-  private ArrayList<StringBuilder> grid;
-  private int rowCount;
-  private int colCount;
+  final private ArrayList<StringBuilder> grid;
+  final private int rowCount;
+  final private int colCount;
   public static final char fillChar = '*';
 
   //Sample usage
@@ -22,10 +22,16 @@ public class Grid implements Cloneable{
     grid = grid.insertRow("WE'R", 0);
     grid = grid.insertRow("#1MA", 1);
     grid = grid.insertRow("----", 2);
-    grid = grid.insertCol("EN-ooo*", 4);
+    grid = grid.insertCol("EN-ooo*", 4); // add a column at the end
+    grid.insertRow("WhatT", 5); // does not work
 
     System.out.println(grid);
-
+  }
+  private Grid(ArrayList<StringBuilder> grid)
+  {
+    this.grid = grid;
+    this.rowCount = grid.size();
+    this.colCount = grid.get(0).length();
   }
 
   public Grid(int col_len, String text) {
@@ -62,10 +68,11 @@ public class Grid implements Cloneable{
       throw new IllegalArgumentException("Invalid row position");
     }
 
-    Grid ret = (Grid) this.clone();
-    ret.grid.add(pos, new StringBuilder(rowStr));
-    ret.rowCount++;
-    return ret;
+
+    ArrayList<StringBuilder> ret = (ArrayList<StringBuilder>) grid.clone();
+
+    ret.add(pos, new StringBuilder(rowStr));
+    return new Grid(ret);
   }
 
   //return a new grid with the column inserted at the specified position
@@ -78,12 +85,12 @@ public class Grid implements Cloneable{
       throw new IllegalArgumentException("Invalid column position");
     }
 
-    Grid ret = (Grid) this.clone();
+    ArrayList<StringBuilder> ret = (ArrayList<StringBuilder>) grid.clone();
+
     for (int i = 0; i < rowCount; i++) {
-      ret.grid.get(i).insert(pos, colStr.charAt(i));
+      ret.get(i).insert(pos, colStr.charAt(i));
     }
-    ret.colCount++;
-    return ret;
+    return new Grid(ret);
   }
 
   public String getRow(int pos) {
@@ -96,6 +103,14 @@ public class Grid implements Cloneable{
       col.append(grid.get(i).charAt(pos));
     }
     return col.toString();
+  }
+
+  public int getRowCount() {
+    return rowCount;
+  }
+
+  public int getColCount() {
+    return colCount;
   }
 
   @Override
@@ -137,4 +152,5 @@ public class Grid implements Cloneable{
     }
     return gridStr.toString();
   }
+
 }
