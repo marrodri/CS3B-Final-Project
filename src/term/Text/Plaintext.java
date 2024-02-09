@@ -6,6 +6,8 @@ public class Plaintext extends Text {
   
   public Plaintext(String text) {
     super(text);
+
+    text = text.toUpperCase();
   }
   
   public Grid getGridPlaintext() {
