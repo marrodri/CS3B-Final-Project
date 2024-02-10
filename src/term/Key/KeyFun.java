@@ -76,6 +76,7 @@ public class KeyFun {
     return order;
   }
 
+  //@Return the index of The SMALLEST number in the key
   private static int minIndex(String intKeyStr)
   {
     int index = 0;
@@ -89,7 +90,7 @@ public class KeyFun {
 
     return index;
   }
-
+  //@Return the index of the SMALLEST number in the key that is bigger than the number at index
   private static int minimumButBiggerThan(String intKeyStr, int index)
   {
     int ret = -1;

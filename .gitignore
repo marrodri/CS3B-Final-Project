@@ -1,4 +1,4 @@
-.vscode/
-.gradle/
-.bin/
-.build/ 
+.vscode/*
+.gradle/*
+.bin/*
+.build/*

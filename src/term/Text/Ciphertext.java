@@ -3,7 +3,7 @@ package term.Text;
 
 import term.Grid.Grid;
 
-public class Ciphertext extends Text {
+public final class Ciphertext extends Text {
 
   public Ciphertext(String text) {
     super(text);

@@ -1,11 +1,10 @@
 package term.Cipher.Decrypt;
 
 import term.Cipher.Decrypt.DecryptSingleTransposition;
-import term.Text.Ciphertext;
-import term.Text.Plaintext;
 import term.Grid.Grid;
-import term.Key.Key;
-import term.Key.KeyFun;
+import term.Text.*;
+import term.Key.*;
+
 
 public class DecryptDoubleTransposition implements Decrypt{
   //First key which is used first in encrypting
@@ -25,14 +24,24 @@ public class DecryptDoubleTransposition implements Decrypt{
   
   public Plaintext decrypt(Ciphertext encryptedText){
     Grid plaintextGrid = inverseDoubleTransposition(encryptedText, keyFirst, keyLater);
-
-    return new Plaintext( KeyFun.listToKeyStr( plaintextGrid.getGridArray() ).replaceAll("\\*", "") );
+    String plaintext = DecryptSingleTransposition.
+      rStripFillChar(KeyFun.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
+    
+    return new Plaintext(plaintext);
   }
 
+  //--------------------------------------------------------------------------------
+
+  
+  //@returns the form of a grid of the plaintext
   static Grid inverseDoubleTransposition(Ciphertext encryptedText, Key keyFirst, Key keyLater) {
-    // Decrypting Double Transposition is the same as decrypting twice with the single transposition
-    Grid ciphertextGrid = DecryptSingleTransposition.inverseSingleTransposition(encryptedText, keyLater);
-    Ciphertext ciphertext = new Ciphertext( KeyFun.listToKeyStr( ciphertextGrid.getGridArray() ));
+  // Decrypting Double Transposition is the same as decrypting twice with the single transposition
+  //Socks Shoes (Encrypting) and Shoes Socks principle (Decrypting)
+    
+    //First take off the shoes : the last key used in encrypting
+    Ciphertext ciphertext = new Ciphertext(DecryptSingleTransposition.decrypt(encryptedText, keyLater).toString());
+
+    //Then take off the socks : the first key used in encrypting
     Grid plaintextGrid = DecryptSingleTransposition.inverseSingleTransposition(ciphertext, keyFirst);
 
     return plaintextGrid;

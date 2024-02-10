@@ -3,9 +3,8 @@ import java.util.ArrayList;
 
 import term.Key.KeyFun;
 
-//Damn Copilot write the whole fking class for me
-
-public class Grid implements Cloneable{
+//Grid class is final because is specialized for transposition cipher
+public final class Grid implements Cloneable{
   private ArrayList<StringBuilder> grid;
   private int rowCount;
   private int colCount;
