@@ -1,6 +1,7 @@
 package term.Cipher.Decrypt;
 
-import term.Cipher.Decrypt.DecryptSingleTransposition;
+import term.Cipher.Encrypt.Encrypt;
+import term.Cipher.Encrypt.EncryptDoubleTransposition;
 import term.Grid.Grid;
 import term.Text.*;
 import term.Key.*;
@@ -11,6 +12,25 @@ public class DecryptDoubleTransposition implements Decrypt{
   private Key keyFirst;
   //Second key which is used later in encrypting
   private Key keyLater;
+  public static void main(String[] args) {
+    Plaintext plaintext = new Plaintext("Hello_World, but it is becoming a larger and larger world.");
+    Key key1 = Key.RandomIntKey(9);
+    Key key2 = Key.RandomIntKey(6);
+    System.out.println("Key1: " + key1);
+    System.out.println("Key2: " + key2);
+    System.out.println();
+
+    Ciphertext ciphertext = EncryptDoubleTransposition.encrypt(plaintext, key1, key2);
+    
+    System.out.println("Plaintext: " + plaintext);
+    System.out.println("Ciphertext: " + ciphertext);
+    System.out.println();
+
+    Plaintext result = DecryptDoubleTransposition.decrypt(ciphertext, key1, key2);
+    System.out.println("Result: " + plaintext);
+    System.out.println("Ciphertext: " + ciphertext);
+
+  }
 
   public DecryptDoubleTransposition(Key KeyFirst, Key KeyLater) {
     this.keyFirst = KeyFirst;

@@ -46,6 +46,7 @@ public class DecryptSingleTransposition implements Decrypt{
       int colToPlace = key.indexOf(i);
       plaintextGrid.replaceCol(inversedGrid.getRow(i), colToPlace);
     }
+    
     return plaintextGrid;
   }
 

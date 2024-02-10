@@ -62,13 +62,15 @@ public abstract class Key{
   }
 
   public abstract int indexOf(int order);
+  public abstract String getKey();
+
   //--------------------------------------------------------------------------------
 
   public Key(String key) {
     this.key = key;
   }
 
-  public String getKey() {
+  public String getKeyStr() {
     return key;
   }
 

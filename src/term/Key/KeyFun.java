@@ -61,6 +61,15 @@ public class KeyFun {
     return Math.ceilDiv(text_len, col_len);
   }
   
+  public static String intArrToStr(int[] arr)
+  {
+    String ret = "";
+    for(int i = 0; i < arr.length; i++)
+    {
+      ret += String.valueOf(arr[i]);
+    }
+    return ret;
+  }
   //Assuming the key is all numbers ranging from 0 to 9 and have no repeating numbers
   //#######//
   public static int[] orderOfIntKey(String intKeyStr)
