@@ -6,10 +6,6 @@ import term.Grid.*;
 
 public class EncryptSingleTransposition implements Encrypt {
   Key key;
-  public static void main(String[] args) {
-    System.out.println(encrypt(new Plaintext("Hello_World"), new LetterKey("DAY")));
-  
-  }
 
   public EncryptSingleTransposition(Key key) {
     this.key = key;
@@ -29,7 +25,7 @@ public class EncryptSingleTransposition implements Encrypt {
     //iterate in increasing order
     for (int order = 0; order < key.getKey().length(); ++order) {
       //find the column index of that order
-      int colIndex = key.getKey().indexOf('0' + order);
+      int colIndex = key.indexOf(order);
       //add that column from the grid to the ciphertext
       ciphertextStr += grid.getCol(colIndex);
     }

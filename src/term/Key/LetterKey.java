@@ -7,6 +7,11 @@ public class LetterKey extends Key{
   public LetterKey(String keyString)
   {
     super(keyString);
+    if(keyString.length() > 10)
+    {
+      throw new IllegalArgumentException("Key length must be less than 10");
+    }
+
     this.ToRead = KeyFun.orderOfIntKey(KeyFun.alphabeticalToNumeric(keyString));
     this.orderKey = KeyFun.intArrToStr(ToRead);
   }

@@ -7,6 +7,12 @@ public class IntKey extends Key{
   public IntKey(String keyString)
   {
     super(keyString);
+    
+    if(keyString.length() > 10)
+    {
+      throw new IllegalArgumentException("Key length must be less than 10");
+    }
+
     this.ToRead = KeyFun.orderOfIntKey(keyString);
     this.orderKey = KeyFun.intArrToStr(ToRead);
   }

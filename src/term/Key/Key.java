@@ -44,7 +44,7 @@ public abstract class Key{
     for (int i = 0; i < len; i++) {
       k.append(Random.nextLetter());
     }
-    return new IntKey(k.toString());
+    return new LetterKey(k.toString());
   }
   
   public static void main(String[] args) {
