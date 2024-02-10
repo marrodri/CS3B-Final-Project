@@ -8,9 +8,12 @@ public class Plaintext extends Text {
     super(text);
   }
   
-  public Grid getGridPlaintext() {
-    // TODO: Implement the logic to retrieve the grid plaintext
-    return null;
+  public Grid getGridText(int col_length) {
+    return new Grid(col_length, super.getText(), Grid.fillChar);
+  }
+
+  public Grid getGridText(int col_length, Character paddingChar) {
+    return new Grid(col_length, super.getText(), paddingChar);
   }
   
 }

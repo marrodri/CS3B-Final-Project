@@ -1,26 +1,96 @@
 package term.Key;
 
-public class Key{
+import java.util.ArrayList;
+import term.Random;
 
+public abstract class Key{
   private String key; // String is immutable 
+  
+  //Non repeated random number from 0 to 9
+  public static Key RandomIntKey(int len) {
+    // Add code to generate a random key with the specified number of characters
+    if(len > 10)
+    {
+      len = 10;
+    }
+    else if (len < 5)
+    {
+      len = 5;
+    }
 
-  public String getKey() {
-    return key;
+
+    ArrayList<Integer> list = new ArrayList<>();
+    for (int i = 0; i < len; i++) {
+      int r = Random.nextInt(10);
+      if(!list.contains(r))
+      {
+        list.add(r);
+      }
+      else
+      {
+        i--;
+      }
+    }
+    
+     
+    return new LetterKey(KeyFun.<Integer>listToKeyStr(list));
   }
+
+  //Repeated random letter from a to z
+  public static Key RandomLetterKey(int len) {
+    // Add code to generate a random key with the specified number of characters
+    // Assign the generated key to the 'key' variable
+    StringBuilder k = new StringBuilder();
+    for (int i = 0; i < len; i++) {
+      k.append(Random.nextLetter());
+    }
+    return new IntKey(k.toString());
+  }
+  
+  public static void main(String[] args) {
+    int loops = 5;
+    int len = 10;
+    System.out.println("\nRandom Int Key\n");
+    for(int i = 0; i < loops; i++) {
+      System.out.println(Key.RandomIntKey(len));
+    }
+
+    System.out.println("\nRandom Letter Key\n");
+    for(int i = 0; i < loops; i++) {
+      System.out.println(Key.RandomLetterKey(len));
+    }
+  }
+
+  public abstract int indexOf(int order);
+  //--------------------------------------------------------------------------------
 
   public Key(String key) {
     this.key = key;
   }
 
-  public static Key generateRandomKey(int numberOfChars) {
-    // Add code to generate a random key with the specified number of characters
-    // Assign the generated key to the 'key' variable
+  public String getKey() {
+    return key;
+  }
 
-    return null;
+  public int getKeyLen() {
+    return key.length();
+  }
+
+  @Override
+  public boolean equals(Object key2) {
+    if(!(key2 instanceof Key)) {
+      return false;
+    }
+    return key.equals(((Key)key2).getKey());
   }
 
   @Override
   public String toString() {
     return key;
   }
+
+  //--------------------------------------------------------------------------------
+
+
 }
+
