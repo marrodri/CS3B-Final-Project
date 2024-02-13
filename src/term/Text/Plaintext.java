@@ -2,7 +2,7 @@ package term.Text;
 
 import term.Grid.Grid;
 
-public class Plaintext extends Text {
+public final class Plaintext extends Text {
   
   public Plaintext(String text) {
     super(text);

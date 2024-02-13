@@ -44,7 +44,7 @@ public abstract class Key{
     for (int i = 0; i < len; i++) {
       k.append(Random.nextLetter());
     }
-    return new IntKey(k.toString());
+    return new LetterKey(k.toString());
   }
   
   public static void main(String[] args) {
@@ -62,13 +62,15 @@ public abstract class Key{
   }
 
   public abstract int indexOf(int order);
+  public abstract String getKey();
+
   //--------------------------------------------------------------------------------
 
   public Key(String key) {
     this.key = key;
   }
 
-  public String getKey() {
+  public String getKeyStr() {
     return key;
   }
 

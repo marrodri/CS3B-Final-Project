@@ -1,12 +1,7 @@
 package term.Cipher.Encrypt;
 
-import javax.crypto.Cipher;
-
-import term.Cipher.Encrypt.Encrypt;
-import term.Key.Key;
-import term.Text.Ciphertext;
-import term.Text.Plaintext;
-
+import term.Key.*;
+import term.Text.*;
 import term.Grid.*;
 
 public class EncryptSingleTransposition implements Encrypt {
@@ -17,21 +12,20 @@ public class EncryptSingleTransposition implements Encrypt {
   }
 
   public static Ciphertext encrypt(Plaintext plaintext, Key key) {
-    EncryptSingleTransposition EST = new EncryptSingleTransposition(key);
-    return EST.encrypt(plaintext);
+    EncryptSingleTransposition est = new EncryptSingleTransposition(key);
+    return est.encrypt(plaintext);
   }
 
   @Override
   public Ciphertext	encrypt(Plaintext plaintext) {
-
     //create a grid and store plaintext in it
     Grid grid = new Grid(key.getKey().length(), plaintext.getText());
     String ciphertextStr = "";
 
     //iterate in increasing order
-    for (int order = 0; order < key.getKey().length() - 1; ++order) {
+    for (int order = 0; order < key.getKey().length(); ++order) {
       //find the column index of that order
-      int colIndex = key.getKey().indexOf(order);
+      int colIndex = key.indexOf(order);
       //add that column from the grid to the ciphertext
       ciphertextStr += grid.getCol(colIndex);
     }

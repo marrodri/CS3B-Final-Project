@@ -1,13 +1,13 @@
 package term.Cipher.Encrypt;
 
-import term.Cipher.Encrypt.Encrypt;
-import term.Key.Key;
-import term.Text.Ciphertext;
-import term.Text.Plaintext;
+import term.Key.*;
+import term.Text.*;
+
 
 public class EncryptDoubleTransposition implements Encrypt {
   Key key1;
   Key key2;
+
 
   public EncryptDoubleTransposition(Key key1, Key key2) {
     this.key1 = key1;
@@ -15,8 +15,8 @@ public class EncryptDoubleTransposition implements Encrypt {
   }
 
   public static Ciphertext encrypt(Plaintext plaintext, Key key1, Key key2) {
-    EncryptDoubleTransposition EDT = new EncryptDoubleTransposition(key1, key2);
-    return EDT.encrypt(plaintext);
+    EncryptDoubleTransposition edt = new EncryptDoubleTransposition(key1, key2);
+    return edt.encrypt(plaintext);
   }
   
   @Override

@@ -3,9 +3,8 @@ import java.util.ArrayList;
 
 import term.Key.KeyFun;
 
-//Damn Copilot write the whole fking class for me
-
-public class Grid implements Cloneable{
+//Grid class is final because is specialized for transposition cipher
+public final class Grid implements Cloneable{
   private ArrayList<StringBuilder> grid;
   private int rowCount;
   private int colCount;
@@ -138,10 +137,18 @@ public class Grid implements Cloneable{
   }
   
   public String getRow(int pos) {
+    if(pos < 0 || pos >= rowCount) {
+      throw new IllegalArgumentException("Invalid row position");
+    }
+    
     return grid.get(pos).toString();
   }
 
   public String getCol(int pos) {
+    if(pos < 0 || pos >= colCount) {
+      throw new IllegalArgumentException("Invalid column position");
+    }
+
     StringBuilder col = new StringBuilder();
     for (int i = 0; i < rowCount; i++) {
       col.append(grid.get(i).charAt(pos));
