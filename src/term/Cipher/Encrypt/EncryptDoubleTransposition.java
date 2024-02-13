@@ -14,11 +14,13 @@ public class EncryptDoubleTransposition implements Encrypt {
     this.key2 = key2;
   }
 
+  //static method for encrypting
   public static Ciphertext encrypt(Plaintext plaintext, Key key1, Key key2) {
     EncryptDoubleTransposition edt = new EncryptDoubleTransposition(key1, key2);
     return edt.encrypt(plaintext);
   }
   
+  //Encrypt the plaintext
   @Override
   public Ciphertext	encrypt(Plaintext plaintext) {    
     EncryptSingleTransposition once = new EncryptSingleTransposition(key1);

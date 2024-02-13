@@ -26,27 +26,32 @@ public class DecryptSingleTransposition implements Decrypt{
 
   }
 
-  //--------------------------------------------------------------------------------
-  public static Plaintext decrypt(Ciphertext encryptedText, Key key) {
-    // Add your decryption logic here
-    return new DecryptSingleTransposition(key).decrypt(encryptedText);
-  }
-  //--------------------------------------------------------------------------------
+  //-------------------------Public Interface------------------------------------------------------
+  //Constructor
   public DecryptSingleTransposition(Key key) {
     this.key = key;
   }
   
-  public Key getKey() {
-    return key;
-  }
-
+  //Decrypt the encrypted text
   public Plaintext decrypt(Ciphertext encryptedText){
     Grid plaintextGrid = inverseSingleTransposition(encryptedText, key);
     String plaintext = rStripFillChar(KeyFun.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
     return new Plaintext(plaintext);
   }
 
-  //@Return grid of the plaintext
+  //static method for decrypting
+  public static Plaintext decrypt(Ciphertext encryptedText, Key key) {
+    return new DecryptSingleTransposition(key).decrypt(encryptedText);
+  }
+
+  //Getter
+  public Key getKey() {
+    return key;
+  }
+
+  //------------------Private/Protected Helper Functions--------------------------------------------------------------
+
+  //@Return grid of the plaintext after decryption
   static Grid inverseSingleTransposition(Ciphertext encryptedText, Key key) {
     int keyLen = key.getKeyLen();
     int cipherTextLen = encryptedText.length();
@@ -68,6 +73,7 @@ public class DecryptSingleTransposition implements Decrypt{
     return plaintextGrid;
   }
 
+  //Remove the consecutive fillchar at the end of the plaintext
   static String rStripFillChar(String plaintext, Character fillchar)
   {
     for(int i = plaintext.length() - 1; i >= 0; i--)

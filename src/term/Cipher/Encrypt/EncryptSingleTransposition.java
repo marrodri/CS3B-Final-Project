@@ -11,11 +11,13 @@ public class EncryptSingleTransposition implements Encrypt {
     this.key = key;
   }
 
+  //static method for encrypting
   public static Ciphertext encrypt(Plaintext plaintext, Key key) {
     EncryptSingleTransposition est = new EncryptSingleTransposition(key);
     return est.encrypt(plaintext);
   }
 
+  //Encrypt the plaintext
   @Override
   public Ciphertext	encrypt(Plaintext plaintext) {
     //create a grid and store plaintext in it

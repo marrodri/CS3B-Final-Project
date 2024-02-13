@@ -57,10 +57,13 @@ public class KeyFun {
     return listK;
   }
 
+  //Used in Grid.java
+  //For getting the row length of the grid, given the key_length and the text_length
   public static int getRowLen(int col_len, int text_len) {
     return Math.ceilDiv(text_len, col_len);
   }
   
+  //Putting and concatenating each entry in the array into a string
   public static String intArrToStr(int[] arr)
   {
     String ret = "";
@@ -70,6 +73,7 @@ public class KeyFun {
     }
     return ret;
   }
+  
   //Assuming the key is all numbers ranging from 0 to 9 and have no repeating numbers
   //#######//
   public static int[] orderOfIntKey(String intKeyStr)
@@ -99,6 +103,7 @@ public class KeyFun {
 
     return index;
   }
+  
   //@Return the index of the SMALLEST number in the key that is bigger than the number at index
   private static int minimumButBiggerThan(String intKeyStr, int index)
   {
