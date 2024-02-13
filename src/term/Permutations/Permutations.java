@@ -1,6 +1,10 @@
 //Powered by Coffee and Coding, and CYLee
 package term.Permutations;
 
+
+//This class is used to generate all the permutations of a set of numbers
+//The pros is that it is memory efficient, and it is easy to use
+//The cons is that it is not as fast as the other methods, and it is not as easy to understand
 public class Permutations {
   protected int SET_SIZE = 10; //number of digits from 0-9
   private int count = 0; //The number of permutations generated
@@ -11,9 +15,12 @@ public class Permutations {
   
   public static void main(String[] args) //Demonstration of the Permutations class
   {
-    Permutations p = new Permutations(4);
-    String targetNum = "0321";
-    while(!p.isDone())
+    Permutations p = new Permutations(10);
+    String targetNum = "0321456789";
+
+    long startTime = System.nanoTime();
+
+    while(p.hasNext())
     {
       String num = p.next();
       if(num.compareTo(targetNum) == 0)
@@ -23,12 +30,16 @@ public class Permutations {
       }
     }
 
+    
     System.out.println();
+    System.out.println("Time: " + (System.nanoTime() - startTime) / 1000000 + "ms");
 
-    int Expected = 10*9*8*7;
+    int Expected = 10*9*8*7*6*5*4*3*2*1;
     System.out.println("Expected count : " + Expected);
     System.out.println("Actual count: " + p.getCount());
   }
+  
+  //-------------------------Public Interface------------------------------------------------------
 
   public Permutations(int len)
   {
@@ -62,9 +73,9 @@ public class Permutations {
     return stringBuilder.toString();
   }
 
-  public boolean isDone()
+  public boolean hasNext()
   {
-    return isDone;
+    return !isDone;
   }
 
   public int getCount()
@@ -72,6 +83,8 @@ public class Permutations {
     return count;
   }
 
+  //------------------Private/Protected Helper Functions--------------------------------------------------------------
+  
   //***call After getting a permutation, and it updates the digit at i to get the next permutation
   //@param i the index of the pointer to be swapped
   // If the digit cannot be swapped with any of the remaining set or any successing digit, then it wraps up
@@ -119,6 +132,8 @@ public class Permutations {
 
 //Both look for bigger and look for smallest are finding number in the remaining set and the successor set
   //Look for bigger is finding the number that is bigger than the current digit but smallest among both sets 
+  
+  //Look for bigger is finding the number that is bigger than the current digit
   private int lookForBigger(int cur)
   {
     int result = -1; //-1 means no number is found
@@ -159,6 +174,8 @@ public class Permutations {
   private int lookForSmallest(int cur)
   {
     int result = -1;
+
+    //search in the remaining set
     for(int i = 0; i < remainingSet.length; i++)
     {
       if(result == -1)
@@ -171,15 +188,16 @@ public class Permutations {
       }
     }
 
-    if(result == -1)
-      for(int i = cur + 1; i < permutations.length; i++)
-      {
-        if((permutations[i] < permutations[cur])
-        &&(
-            result == -1 
-            || ((result >= remainingSet.length) && (permutations[i] < permutations[result - remainingSet.length])))
-        ) result = i + remainingSet.length;  
-      }
+    //search in the successor set
+    for(int i = cur + 1; i < permutations.length; i++)
+    {
+      if((permutations[i] < permutations[cur])
+      &&(
+          result == -1 
+          || ((result >= remainingSet.length) && (permutations[i] < permutations[result - remainingSet.length])))
+      ) result = i + remainingSet.length;  
+    }
+    
     return result;
   }
   

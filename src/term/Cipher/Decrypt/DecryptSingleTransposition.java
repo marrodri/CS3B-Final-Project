@@ -26,32 +26,37 @@ public class DecryptSingleTransposition implements Decrypt{
 
   }
 
-  //--------------------------------------------------------------------------------
-  public static Plaintext decrypt(Ciphertext encryptedText, Key key) {
-    // Add your decryption logic here
-    return new DecryptSingleTransposition(key).decrypt(encryptedText);
-  }
-  //--------------------------------------------------------------------------------
+  //-------------------------Public Interface------------------------------------------------------
+  //Constructor
   public DecryptSingleTransposition(Key key) {
     this.key = key;
   }
   
+  //Decrypt the encrypted text
+  public Plaintext decrypt(Ciphertext encryptedText){
+    Grid plaintextGrid = inverseSingleTransposition(encryptedText, key);
+    String plaintext = rStripFillChar(KeyFunctions.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
+    return new Plaintext(plaintext);
+  }
+
+  //static method for decrypting
+  public static Plaintext decrypt(Ciphertext encryptedText, Key key) {
+    return new DecryptSingleTransposition(key).decrypt(encryptedText);
+  }
+
+  //Getter
   public Key getKey() {
     return key;
   }
 
-  public Plaintext decrypt(Ciphertext encryptedText){
-    Grid plaintextGrid = inverseSingleTransposition(encryptedText, key);
-    String plaintext = rStripFillChar(KeyFun.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
-    return new Plaintext(plaintext);
-  }
+  //------------------Private/Protected Helper Functions--------------------------------------------------------------
 
-  //@Return grid of the plaintext
+  //@Return grid of the plaintext after decryption
   static Grid inverseSingleTransposition(Ciphertext encryptedText, Key key) {
     int keyLen = key.getKeyLen();
     int cipherTextLen = encryptedText.length();
     //First put the encrypted text into a inversed grid (row and col are inversed)
-    Grid inversedGrid = new Grid(KeyFun.getRowLen(keyLen, cipherTextLen), encryptedText.getText());
+    Grid inversedGrid = new Grid(KeyFunctions.getRowLen(keyLen, cipherTextLen), encryptedText.getText());
 
     //Create a grid to store the plaintext
     Grid plaintextGrid = new Grid(keyLen, encryptedText.getText());
@@ -68,6 +73,7 @@ public class DecryptSingleTransposition implements Decrypt{
     return plaintextGrid;
   }
 
+  //Remove the consecutive fillchar at the end of the plaintext
   static String rStripFillChar(String plaintext, Character fillchar)
   {
     for(int i = plaintext.length() - 1; i >= 0; i--)

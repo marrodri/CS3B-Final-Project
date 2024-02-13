@@ -1,7 +1,7 @@
 package term.Grid;
 import java.util.ArrayList;
 
-import term.Key.KeyFun;
+import term.Key.KeyFunctions;
 
 //Grid class is final because is specialized for transposition cipher
 public final class Grid implements Cloneable{
@@ -37,7 +37,7 @@ public final class Grid implements Cloneable{
   public Grid(int col_len, String text, char fillerChar) {
     this.grid = new ArrayList<>();
     this.colCount = col_len;
-    this.rowCount = KeyFun.getRowLen(col_len, text.length());
+    this.rowCount = KeyFunctions.getRowLen(col_len, text.length());
 
     int remainder = col_len - text.length() % col_len;
     

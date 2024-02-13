@@ -1,20 +1,22 @@
 package term.Key;
 
-public class LetterKey extends Key{
+public class NumericKey extends Key{
   private final int[] ToRead;
   private final String orderKey;
 
-  //The key is a string of letters from a to z or A to Z(non-repeating)
-  public LetterKey(String keyString)
+  //The key is a string of numbers from 0 to 9 (non-repeating)
+  //Max length of the key is 10
+  public NumericKey(String keyString)
   {
     super(keyString);
+    
     if(keyString.length() > 10)
     {
       throw new IllegalArgumentException("Key length must be less than 10");
     }
 
     //Convert the key to an array of look up table for reading column order
-    this.ToRead = KeyFunctions.orderOfIntKey(KeyFunctions.alphabeticalToNumeric(keyString));
+    this.ToRead = KeyFunctions.orderOfIntKey(keyString);
     //Turning the look up table back to a string key
     this.orderKey = KeyFunctions.intArrToStr(ToRead);
   }

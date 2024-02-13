@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import term.Random;
 
 public abstract class Key{
-  private String key; // String is immutable 
+  private final String keyStr; // key is immutable 
   
   //Non repeated random number from 0 to 9
   public static Key RandomIntKey(int len) {
@@ -33,7 +33,7 @@ public abstract class Key{
     }
     
      
-    return new LetterKey(KeyFun.<Integer>listToKeyStr(list));
+    return new LetterKey(KeyFunctions.<Integer>listToKeyStr(list));
   }
 
   //Repeated random letter from a to z
@@ -61,21 +61,26 @@ public abstract class Key{
     }
   }
 
+  //return the index of column readin based on order (first to read is 0, and last to read is len-1) 
   public abstract int indexOf(int order);
+
+  //return the key representing the reading order
   public abstract String getKey();
 
   //--------------------------------------------------------------------------------
 
   public Key(String key) {
-    this.key = key;
+    this.keyStr = key;
   }
 
+  //return the original string
+  //(that is not the actual Key)
   public String getKeyStr() {
-    return key;
+    return keyStr;
   }
 
   public int getKeyLen() {
-    return key.length();
+    return keyStr.length();
   }
 
   @Override
@@ -83,12 +88,12 @@ public abstract class Key{
     if(!(key2 instanceof Key)) {
       return false;
     }
-    return key.equals(((Key)key2).getKey());
+    return keyStr.equals(((Key)key2).getKeyStr());
   }
 
   @Override
   public String toString() {
-    return key;
+    return keyStr;
   }
 
   //--------------------------------------------------------------------------------
