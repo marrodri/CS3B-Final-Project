@@ -2,8 +2,9 @@ package term.Key;
 //From Benchmark Ben, very powerful, very useful
 
 import java.util.ArrayList;
+import java.lang.Math;
 
-public class KeyFun {
+public class KeyFunctions {
   public static void main(String[] args) {
     System.out.println("Order of 927345: ");
     for(int i : orderOfIntKey("927345"))

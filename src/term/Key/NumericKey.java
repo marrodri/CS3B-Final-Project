@@ -1,12 +1,12 @@
 package term.Key;
 
-public class IntKey extends Key{
+public class NumericKey extends Key{
   private final int[] ToRead;
   private final String orderKey;
 
   //The key is a string of numbers from 0 to 9 (non-repeating)
   //Max length of the key is 10
-  public IntKey(String keyString)
+  public NumericKey(String keyString)
   {
     super(keyString);
     
@@ -16,9 +16,9 @@ public class IntKey extends Key{
     }
 
     //Convert the key to an array of look up table for reading column order
-    this.ToRead = KeyFun.orderOfIntKey(keyString);
+    this.ToRead = KeyFunctions.orderOfIntKey(keyString);
     //Turning the look up table back to a string key
-    this.orderKey = KeyFun.intArrToStr(ToRead);
+    this.orderKey = KeyFunctions.intArrToStr(ToRead);
   }
   
   //Return the index of the order

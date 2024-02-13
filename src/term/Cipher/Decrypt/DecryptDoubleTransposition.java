@@ -73,7 +73,7 @@ public class DecryptDoubleTransposition implements Decrypt{
   public Plaintext decrypt(Ciphertext encryptedText){
     Grid plaintextGrid = inverseDoubleTransposition(encryptedText, keyFirst, keyLater);
     String plaintext = DecryptSingleTransposition.
-      rStripFillChar(KeyFun.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
+      rStripFillChar(KeyFunctions.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
     
     return new Plaintext(plaintext);
   }

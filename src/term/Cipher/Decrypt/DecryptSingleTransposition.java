@@ -35,7 +35,7 @@ public class DecryptSingleTransposition implements Decrypt{
   //Decrypt the encrypted text
   public Plaintext decrypt(Ciphertext encryptedText){
     Grid plaintextGrid = inverseSingleTransposition(encryptedText, key);
-    String plaintext = rStripFillChar(KeyFun.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
+    String plaintext = rStripFillChar(KeyFunctions.listToKeyStr( plaintextGrid.getGridArray()) , Grid.fillChar);
     return new Plaintext(plaintext);
   }
 
@@ -56,7 +56,7 @@ public class DecryptSingleTransposition implements Decrypt{
     int keyLen = key.getKeyLen();
     int cipherTextLen = encryptedText.length();
     //First put the encrypted text into a inversed grid (row and col are inversed)
-    Grid inversedGrid = new Grid(KeyFun.getRowLen(keyLen, cipherTextLen), encryptedText.getText());
+    Grid inversedGrid = new Grid(KeyFunctions.getRowLen(keyLen, cipherTextLen), encryptedText.getText());
 
     //Create a grid to store the plaintext
     Grid plaintextGrid = new Grid(keyLen, encryptedText.getText());

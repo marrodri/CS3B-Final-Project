@@ -14,9 +14,9 @@ public class LetterKey extends Key{
     }
 
     //Convert the key to an array of look up table for reading column order
-    this.ToRead = KeyFun.orderOfIntKey(KeyFun.alphabeticalToNumeric(keyString));
+    this.ToRead = KeyFunctions.orderOfIntKey(KeyFunctions.alphabeticalToNumeric(keyString));
     //Turning the look up table back to a string key
-    this.orderKey = KeyFun.intArrToStr(ToRead);
+    this.orderKey = KeyFunctions.intArrToStr(ToRead);
   }
   
   //Return the index of the order

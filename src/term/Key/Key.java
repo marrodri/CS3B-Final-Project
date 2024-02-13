@@ -33,7 +33,7 @@ public abstract class Key{
     }
     
      
-    return new LetterKey(KeyFun.<Integer>listToKeyStr(list));
+    return new LetterKey(KeyFunctions.<Integer>listToKeyStr(list));
   }
 
   //Repeated random letter from a to z
