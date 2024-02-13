@@ -2,3 +2,5 @@
 .gradle/*
 .bin/*
 .build/*
+.idea/gradle.xml
+.idea/misc.xml
